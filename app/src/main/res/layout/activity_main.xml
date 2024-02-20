@@ -10,20 +10,28 @@
         android:layout_height="wrap_content"
         tools:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways|snap"
-            app:title="@string/app_name" />
+            android:hint="@string/hint_search"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways|snap" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        style="@style/RecyclerStyle"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <com.google.android.material.search.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/hint_search"
+        app:layout_anchor="@id/search_bar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            style="@style/RecyclerStyle"/>
+
+    </com.google.android.material.search.SearchView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

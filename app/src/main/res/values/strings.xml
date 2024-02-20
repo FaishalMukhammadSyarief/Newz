@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Newz</string>
+    <string name="hint_search">Search</string>
 </resources>
