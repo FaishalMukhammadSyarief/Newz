@@ -1,11 +1,14 @@
 package com.zhalz.newz
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.crocodic.core.base.activity.NoViewModelActivity
+import com.zhalz.newz.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_main) {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+
     }
 }
