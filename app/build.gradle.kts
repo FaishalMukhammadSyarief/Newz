@@ -51,8 +51,9 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    /*  ==  GLIDE  ==  */
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    /* == DEPENDENCY INJECTION == */
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt ("com.google.dagger:hilt-compiler:2.48")
 
     /*  ==  RETROFIT  ==  */
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -61,4 +62,8 @@ dependencies {
 
     /*  ==  LOTTIE  ==  */
     implementation ("com.airbnb.android:lottie:6.3.0")
+
+    /*  ==  GLIDE  ==  */
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
 }
