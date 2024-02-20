@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "534555047864",
+    "project_id": "crocodic-academy",
+    "storage_bucket": "crocodic-academy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534555047864:android:0817f5ad66f75b0821c14d",
+        "android_client_info": {
+          "package_name": "com.zhalz.friendzy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl9YMPtbDbFS_8TG_S8P1E9h3egrrjG5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534555047864:android:e561b23954bbb50d21c14d",
+        "android_client_info": {
+          "package_name": "com.zhalz.grato"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl9YMPtbDbFS_8TG_S8P1E9h3egrrjG5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534555047864:android:f6fed8866ff2663a21c14d",
+        "android_client_info": {
+          "package_name": "com.zhalz.newz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl9YMPtbDbFS_8TG_S8P1E9h3egrrjG5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

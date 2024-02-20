@@ -2,6 +2,14 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+
+    /*  == HILT ==  */
+    id("com.google.dagger.hilt.android")
+
+    /*  == FIREBASE ==  */
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
 }
 
 android {
@@ -38,9 +46,15 @@ android {
         dataBinding = true
         buildConfig = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
+
+    /* == CROCODIC CORE == */
+    implementation("com.github.crocodic-studio:AndroidCoreProject:4.0.11")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -53,7 +67,7 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
-    /* == DEPENDENCY INJECTION == */
+    /* == HILT == */
     implementation("com.google.dagger:hilt-android:2.48")
     kapt ("com.google.dagger:hilt-compiler:2.48")
 
@@ -67,5 +81,9 @@ dependencies {
 
     /*  ==  GLIDE  ==  */
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    /*  == FIREBASE ==  */
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
 }
