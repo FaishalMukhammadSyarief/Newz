@@ -8,5 +8,10 @@
         <item name="android:orientation">vertical</item>
         <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
     </style>
-    
+
+    <style name="ShapeRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">14dp</item>
+    </style>
+
 </resources>
