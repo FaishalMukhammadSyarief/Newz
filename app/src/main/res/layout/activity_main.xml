@@ -28,6 +28,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_news_home"
             style="@style/RecyclerStyle"
+            tools:listitem="@layout/item_news"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.search.SearchView
@@ -38,6 +39,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_news_result"
+                tools:listitem="@layout/item_news"
                 style="@style/RecyclerStyle" />
 
         </com.google.android.material.search.SearchView>
