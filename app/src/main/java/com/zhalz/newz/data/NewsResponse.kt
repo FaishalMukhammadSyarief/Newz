@@ -11,13 +11,13 @@ data class NewsResponse(
 	val nextPage: String? = null,
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem?>? = null,
+	val results: List<NewsData?>? = null,
 
 	@field:SerializedName("status")
 	val status: String? = null
 )
 
-data class ResultsItem(
+data class NewsData(
 
 	@field:SerializedName("country")
 	val country: List<String?>? = null,

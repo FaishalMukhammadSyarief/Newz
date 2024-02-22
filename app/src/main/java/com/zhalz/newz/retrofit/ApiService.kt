@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("news/{apikey}")
+    @GET("news")
     fun getNews( @Query (value = "apikey") apikey: String ) : Call<NewsResponse>
 }
