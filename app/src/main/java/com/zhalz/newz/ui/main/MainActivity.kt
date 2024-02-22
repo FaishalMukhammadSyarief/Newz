@@ -15,21 +15,45 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        getNews()
+        getNewsHome()
+        getNewsSearch()
 
     }
 
-    private fun getNews() {
+    private fun getNewsHome() {
         lifecycleScope.launch {
-            viewModel.listUser.observe(this@MainActivity) {
-                setRecycler(it)
+            viewModel.listNewsHome.observe(this@MainActivity) {
+                setRecyclerHome(it)
             }
         }
     }
 
-    private fun setRecycler(newsList: List<NewsData?>?) {
+        private fun getNewsSearch() {
+            lifecycleScope.launch {
+
+                binding.searchView
+                    .editText
+                    .setOnEditorActionListener { _, _, _ ->
+                        val query = binding.searchView.text.toString()
+                        viewModel.getQueryNews(query)
+                        true
+                    }
+
+                viewModel.listNewsSearch.observe(this@MainActivity) {
+                    setRecyclerSearch(it)
+                }
+            }
+        }
+
+    private fun setRecyclerHome(newsList: List<NewsData?>?) {
         val adapter = NewsAdapter()
         adapter.submitList(newsList)
         binding.rvNewsHome.adapter = adapter
     }
+
+        private fun setRecyclerSearch(newsList: List<NewsData?>?) {
+            val adapter = NewsAdapter()
+            adapter.submitList(newsList)
+            binding.rvNewsSearch.adapter = adapter
+        }
 }

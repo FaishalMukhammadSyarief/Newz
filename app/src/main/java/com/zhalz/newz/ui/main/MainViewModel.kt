@@ -12,8 +12,11 @@ import timber.log.Timber
 
 class MainViewModel : BaseViewModel() {
 
-    private val _listNews = MutableLiveData<List<NewsData?>?>()
-    val listUser = _listNews
+    private val _listNewsHome = MutableLiveData<List<NewsData?>?>()
+    val listNewsHome = _listNewsHome
+
+        private val _listNewsSearch = MutableLiveData<List<NewsData?>?>()
+        val listNewsSearch = _listNewsSearch
 
     init {
         getNews()
@@ -26,7 +29,7 @@ class MainViewModel : BaseViewModel() {
 
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 if (response.isSuccessful) {
-                    _listNews.value = response.body()?.results
+                    _listNewsHome.value = response.body()?.results
                 } else {
                     Timber.e("onFailure: " + response.message())
                 }
@@ -39,4 +42,26 @@ class MainViewModel : BaseViewModel() {
         })
 
     }
+
+        fun getQueryNews(query: String) {
+
+            val client = ApiConfig.getApiService().getQueryNews("pub_38692040c72123915418765ff9c7ea3cd795f", query)
+            client.enqueue(object : Callback<NewsResponse> {
+
+                override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                    if (response.isSuccessful) {
+                        _listNewsSearch.value = response.body()?.results
+                    } else {
+                        Timber.e("onFailure: " + response.message())
+                    }
+                }
+
+                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                    Timber.tag("MainViewModel").e("onFailure: %s", t.message.toString())
+                }
+
+            })
+
+        }
+
 }
