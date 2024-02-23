@@ -1,16 +1,20 @@
 package com.zhalz.newz.ui.main
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zhalz.newz.base.BaseViewModel
 import com.zhalz.newz.data.NewsData
 import com.zhalz.newz.data.NewsResponse
-import com.zhalz.newz.retrofit.ApiConfig
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
+import javax.inject.Inject
 
-class MainViewModel : BaseViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor() : BaseViewModel() {
 
     private val _listNewsHome = MutableLiveData<List<NewsData?>?>()
     val listNewsHome = _listNewsHome
@@ -22,32 +26,41 @@ class MainViewModel : BaseViewModel() {
         getNews()
     }
 
-    private fun getNews() {
+        private fun getNews() = viewModelScope.launch {
 
-        val client = ApiConfig.getApiService().getNews("pub_38692040c72123915418765ff9c7ea3cd795f")
-        client.enqueue(object : Callback<NewsResponse> {
+            apiService.getNews(API_KEY)
+                .enqueue(object : Callback<NewsResponse> {
 
-            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-                if (response.isSuccessful) {
-                    _listNewsHome.value = response.body()?.results
-                } else {
-                    Timber.e("onFailure: " + response.message())
+                override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                    if (response.isSuccessful) {
+                        _listNewsHome.value = response.body()?.results
+                    } else {
+                        Timber.e("onFailure: " + response.message())
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                Timber.tag("MainViewModel").e("onFailure: %s", t.message.toString())
-            }
+                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                    Timber.tag("MainViewModel").e("onFailure: %s", t.message.toString())
+                }
 
-        })
+            })
 
-    }
+        }
 
-    fun getQueryNews(query: String) {
+/*    private fun getNews() {
+        viewModelScope.launch {
+            ApiObserver.run(
+                { apiService.getNews(API_KEY) },
+                false, object : ApiObserver.ResponseListenerFlow<NewsResponse>(_listNewsHome) {
 
-        val client = ApiConfig.getApiService()
-            .getQueryNews("pub_38692040c72123915418765ff9c7ea3cd795f", query)
-        client.enqueue(object : Callback<NewsResponse> {
+                })
+        }
+    }*/
+
+    fun getQueryNews(query: String) = viewModelScope.launch {
+
+        apiService.getQueryNews(API_KEY, query)
+            .enqueue(object : Callback<NewsResponse> {
 
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 if (response.isSuccessful) {
@@ -63,6 +76,10 @@ class MainViewModel : BaseViewModel() {
 
         })
 
+    }
+
+    companion object {
+        const val API_KEY = "pub_38692040c72123915418765ff9c7ea3cd795f"
     }
 
 }
