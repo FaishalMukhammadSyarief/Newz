@@ -28,22 +28,22 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         }
     }
 
-        private fun getNewsSearch() {
-            lifecycleScope.launch {
+    private fun getNewsSearch() {
+        lifecycleScope.launch {
 
-                binding.searchView
-                    .editText
-                    .setOnEditorActionListener { _, _, _ ->
-                        val query = binding.searchView.text.toString()
-                        viewModel.getQueryNews(query)
-                        true
-                    }
-
-                viewModel.listNewsSearch.observe(this@MainActivity) {
-                    setRecyclerSearch(it)
+            binding.searchView
+                .editText
+                .setOnEditorActionListener { _, _, _ ->
+                    val query = binding.searchView.text.toString()
+                    viewModel.getQueryNews(query)
+                    true
                 }
+
+            viewModel.listNewsSearch.observe(this@MainActivity) {
+                setRecyclerSearch(it)
             }
         }
+    }
 
     private fun setRecyclerHome(newsList: List<NewsData?>?) {
         val adapter = NewsAdapter()
@@ -51,9 +51,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         binding.rvNewsHome.adapter = adapter
     }
 
-        private fun setRecyclerSearch(newsList: List<NewsData?>?) {
-            val adapter = NewsAdapter()
-            adapter.submitList(newsList)
-            binding.rvNewsSearch.adapter = adapter
-        }
+    private fun setRecyclerSearch(newsList: List<NewsData?>?) {
+        val adapter = NewsAdapter()
+        adapter.submitList(newsList)
+        binding.rvNewsSearch.adapter = adapter
+    }
 }
