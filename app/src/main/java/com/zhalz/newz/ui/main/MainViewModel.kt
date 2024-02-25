@@ -1,5 +1,6 @@
 package com.zhalz.newz.ui.main
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zhalz.newz.base.BaseViewModel
@@ -17,16 +18,12 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor() : BaseViewModel() {
 
     private val _listNewsHome = MutableLiveData<List<NewsData?>?>()
-    val listNewsHome = _listNewsHome
+    val listNewsHome: LiveData<List<NewsData?>?> = _listNewsHome
 
     private val _listNewsSearch = MutableLiveData<List<NewsData?>?>()
-    val listNewsSearch = _listNewsSearch
+    val listNewsSearch: LiveData<List<NewsData?>?>  = _listNewsSearch
 
-    init {
-        getNews()
-    }
-
-        private fun getNews() = viewModelScope.launch {
+        fun getNews() = viewModelScope.launch {
 
             apiService.getNews(API_KEY)
                 .enqueue(object : Callback<NewsResponse> {

@@ -1,7 +1,9 @@
 package com.zhalz.newz.ui.main
 
 import android.os.Bundle
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.crocodic.core.base.adapter.ReactiveListAdapter
 import com.zhalz.newz.R
 import com.zhalz.newz.base.BaseActivity
@@ -18,21 +20,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        getNewsHome()
-        getNewsSearch()
+        getNews()
+
+        setNews(viewModel.listNewsHome, binding.rvNewsHome)
+        setNews(viewModel.listNewsSearch, binding.rvNewsSearch)
 
     }
 
-    private fun getNewsHome() {
+    private fun getNews() {
         lifecycleScope.launch {
-            viewModel.listNewsHome.observe(this@MainActivity) {
-                setRvHome(it)
-            }
-        }
-    }
 
-    private fun getNewsSearch() {
-        lifecycleScope.launch {
+            viewModel.getNews()
 
             binding.searchView
                 .editText
@@ -42,24 +40,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
                     true
                 }
 
-            viewModel.listNewsSearch.observe(this@MainActivity) {
-                setRvSearch(it)
-            }
         }
     }
 
-    private fun setRvHome(newsList: List<NewsData?>?) {
-        val adapter=
-            ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ ->}
-        adapter.submitList(newsList)
-        binding.rvNewsHome.adapter = adapter
-    }
+    private fun setNews(listNews: LiveData<List<NewsData?>?>, recyclerView: RecyclerView) {
+        lifecycleScope.launch {
 
-    private fun setRvSearch(newsList: List<NewsData?>?) {
-        val adapter=
-            ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ -> }
-        adapter.submitList(newsList)
-        binding.rvNewsSearch.adapter = adapter
+            val adapter =
+                ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ -> }
+            listNews.observe(this@MainActivity) { adapter.submitList(it) }
+            recyclerView.adapter = adapter
+
+        }
     }
 
 }
