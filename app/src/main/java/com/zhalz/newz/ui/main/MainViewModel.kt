@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.crocodic.core.api.ApiObserver
 import com.zhalz.newz.base.BaseViewModel
 import com.zhalz.newz.data.NewsResponse
-import com.zhalz.newz.retrofit.ApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
