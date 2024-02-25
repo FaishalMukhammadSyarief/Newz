@@ -16,8 +16,7 @@ class NewsAdapter : ListAdapter<NewsData, NewsAdapter.UserViewHolder>(DIFF_CALLB
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.binding.tvTitle.text = getItem(position).title
-        holder.binding.tvDescription.text = getItem(position).description
+        holder.binding.dataNews = getItem(position)
         Glide
             .with(holder.itemView.context)
             .load(getItem(position).imageUrl)
