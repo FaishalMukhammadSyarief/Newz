@@ -2,11 +2,12 @@ package com.zhalz.newz.ui.main
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.crocodic.core.base.adapter.ReactiveListAdapter
 import com.zhalz.newz.R
-import com.zhalz.newz.adapter.NewsAdapter
 import com.zhalz.newz.base.BaseActivity
 import com.zhalz.newz.data.NewsData
 import com.zhalz.newz.databinding.ActivityMainBinding
+import com.zhalz.newz.databinding.ItemNewsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,14 +49,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
     }
 
     private fun setRvHome(newsList: List<NewsData?>?) {
-        val adapter = NewsAdapter()
+        val adapter=
+            ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ ->}
         adapter.submitList(newsList)
         binding.rvNewsHome.adapter = adapter
     }
 
     private fun setRvSearch(newsList: List<NewsData?>?) {
-        val adapter = NewsAdapter()
+        val adapter=
+            ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ -> }
         adapter.submitList(newsList)
         binding.rvNewsSearch.adapter = adapter
     }
+
 }
