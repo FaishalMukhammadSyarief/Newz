@@ -7,12 +7,9 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("news")
-    suspend fun getNews( @Query ("apikey") apikey: String ) : NewsResponse
-
-    @GET("news")
-    suspend fun getQueryNews(
+    suspend fun getNews(
         @Query ("apikey") apikey: String,
-        @Query ("q") query: String
+        @Query ("q") query: String?
     ) : NewsResponse
 
 }

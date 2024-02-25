@@ -30,12 +30,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
 
     private fun getNews() {
         viewModel.getNews()
-
         binding.searchView
             .editText
             .setOnEditorActionListener { _, _, _ ->
                 val query = binding.searchView.text.toString().trim()
-                viewModel.getQueryNews(query)
+                viewModel.getNews(query)
                 true
             }
     }

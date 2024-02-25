@@ -19,21 +19,15 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     private val _listNewsSearch = MutableSharedFlow<NewsResponse>()
     val listNewsSearch = _listNewsSearch.asSharedFlow()
 
-    fun getNews() {
+    fun getNews(query: String? = null) {
         viewModelScope.launch {
             ApiObserver.run(
-                { apiService.getNews(API_KEY) },
+                { apiService.getNews(API_KEY, query) },
                 false,
-                object : ApiObserver.ResponseListenerFlow<NewsResponse>(_listNewsHome) {})
-        }
-    }
-
-    fun getQueryNews(query: String) {
-        viewModelScope.launch {
-            ApiObserver.run(
-                { apiService.getQueryNews(API_KEY, query) },
-                false,
-                object : ApiObserver.ResponseListenerFlow<NewsResponse>(_listNewsSearch) {})
+                object : ApiObserver.ResponseListenerFlow<NewsResponse>(
+                    if (query == null) _listNewsHome
+                    else _listNewsSearch
+                ) {})
         }
     }
 
