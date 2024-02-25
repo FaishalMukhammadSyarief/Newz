@@ -1,16 +1,17 @@
 package com.zhalz.newz.ui.main
 
 import android.os.Bundle
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.crocodic.core.base.adapter.ReactiveListAdapter
 import com.zhalz.newz.R
 import com.zhalz.newz.base.BaseActivity
 import com.zhalz.newz.data.NewsData
+import com.zhalz.newz.data.NewsResponse
 import com.zhalz.newz.databinding.ActivityMainBinding
 import com.zhalz.newz.databinding.ItemNewsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -28,30 +29,23 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
     }
 
     private fun getNews() {
-        lifecycleScope.launch {
+        viewModel.getNews()
 
-            viewModel.getNews()
-
-            binding.searchView
-                .editText
-                .setOnEditorActionListener { _, _, _ ->
-                    val query = binding.searchView.text.toString()
-                    viewModel.getQueryNews(query)
-                    true
-                }
-
-        }
+        binding.searchView
+            .editText
+            .setOnEditorActionListener { _, _, _ ->
+                val query = binding.searchView.text.toString()
+                viewModel.getQueryNews(query)
+                true
+            }
     }
 
-    private fun setNews(listNews: LiveData<List<NewsData?>?>, recyclerView: RecyclerView) {
+    private fun setNews(listNews: SharedFlow<NewsResponse>, recyclerView: RecyclerView) {
+        val adapter = ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ -> }
         lifecycleScope.launch {
-
-            val adapter =
-                ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ -> }
-            listNews.observe(this@MainActivity) { adapter.submitList(it) }
-            recyclerView.adapter = adapter
-
+            listNews.collect { adapter.submitList(it.data) }
         }
+        recyclerView.adapter = adapter
     }
 
 }

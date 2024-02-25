@@ -1,21 +1,14 @@
 package com.zhalz.newz.data
 
+import com.crocodic.core.api.ModelResponse
 import com.google.gson.annotations.SerializedName
 
 data class NewsResponse(
 
-	@field:SerializedName("totalResults")
-	val totalResults: Int? = null,
-
-	@field:SerializedName("nextPage")
-	val nextPage: String? = null,
-
 	@field:SerializedName("results")
-	val results: List<NewsData?>? = null,
+	val data: List<NewsData>?
 
-	@field:SerializedName("status")
-	val status: String? = null
-)
+) : ModelResponse()
 
 data class NewsData(
 
