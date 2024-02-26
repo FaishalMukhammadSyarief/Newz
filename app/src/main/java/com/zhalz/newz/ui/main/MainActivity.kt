@@ -26,6 +26,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         setNews(viewModel.listNewsHome, binding.rvNewsHome)
         setNews(viewModel.listNewsSearch, binding.rvNewsSearch)
 
+        binding.btnFilter.setOnClickListener {
+            BottomSheet(supportFragmentManager, ).show()
+        }
+
     }
 
     private fun getNews() {
