@@ -9,7 +9,8 @@ interface ApiService {
     @GET("news")
     suspend fun getNews(
         @Query ("apikey") apikey: String,
-        @Query ("q") query: String?
+        @Query ("q") query: String?,
+        @Query ("language") language: String?
     ) : NewsResponse
 
 }

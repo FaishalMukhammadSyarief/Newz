@@ -5,4 +5,11 @@
     <string name="lorem">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum at lorem vel pretium. Aliquam mattis leo dui, sed elementum mi imperdiet eget. Curabitur id nulla finibus, venenatis tellus vel, mattis purus. Aliquam a turpis ac nunc vehicula pretium a quis nunc. Vestibulum ut purus in felis elementum aliquam. Praesent laoreet eu augue et porttitor. Suspendisse in odio tortor. Donec a est at felis consectetur sagittis ut sit amet mi. Fusce mattis ornare nibh. Sed rutrum tincidunt risus non vulputate. Donec id posuere mi. Duis porta pharetra odio et pretium. Integer congue est ut eros vehicula, at tincidunt arcu tempor.
     </string>
+    <string name="apply">Apply</string>
+    <string name="russian">Russian</string>
+    <string name="chinese">Chinese</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="indonesia">Indonesia</string>
+    <string name="filter">Filter</string>
 </resources>

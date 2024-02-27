@@ -19,10 +19,10 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     private val _listNewsSearch = MutableSharedFlow<NewsResponse>()
     val listNewsSearch = _listNewsSearch.asSharedFlow()
 
-    fun getNews(query: String? = null) {
+    fun getNews(query: String? = null, language: String? = null) {
         viewModelScope.launch {
             ApiObserver.run(
-                { apiService.getNews(API_KEY, query) },
+                { apiService.getNews(API_KEY, query, language) },
                 false,
                 object : ApiObserver.ResponseListenerFlow<NewsResponse>(
                     if (query == null) _listNewsHome

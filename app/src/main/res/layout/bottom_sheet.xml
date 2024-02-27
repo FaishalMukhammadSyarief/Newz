@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <variable
+            name="bottomSheet"
+            type="com.zhalz.newz.ui.main.BottomSheet" />
 
     </data>
 
@@ -14,41 +19,47 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filter"
+            android:text="@string/filter"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Indonesia" />
+            android:checked="@={bottomSheet.filterId}"
+            android:text="@string/indonesia" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="English" />
+            android:checked="@={bottomSheet.filterEn}"
+            android:text="@string/english" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chinese" />
+            android:checked="@={bottomSheet.filterAr}"
+            android:text="@string/arabic" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Russian" />
+            android:checked="@={bottomSheet.filterCh}"
+            android:text="@string/chinese" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Arabian" />
+            android:checked="@={bottomSheet.filterRu}"
+            android:text="@string/russian" />
 
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Apply" />
+            android:onClick="@{() -> bottomSheet.apply()}"
+            android:text="@string/apply"
+            app:cornerRadius="8dp" />
 
     </LinearLayout>
 </layout>
