@@ -21,7 +21,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_search"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways|snap" />
+                android:paddingEnd="8dp"
+                app:menu="@menu/menu_search_bar"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways|snap"
+                tools:ignore="RtlSymmetry" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -44,13 +47,6 @@
                 style="@style/RecyclerStyle" />
 
         </com.google.android.material.search.SearchView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_filter"
-            android:contentDescription="l"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

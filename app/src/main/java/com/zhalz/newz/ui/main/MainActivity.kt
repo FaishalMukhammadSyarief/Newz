@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
 
     private val filterBottomSheet by lazy {
         BottomSheet(session) {
-            val currentFilter= ArrayList<String>()
+            val currentFilter = ArrayList<String>()
 
             if (session.getBoolean(BottomSheet.INDONESIA)) {
                 currentFilter.add(BottomSheet.INDONESIA)
@@ -61,8 +61,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         setNews(viewModel.listNewsHome, binding.rvNewsHome)
         setNews(viewModel.listNewsSearch, binding.rvNewsSearch)
 
-        binding.btnFilter.setOnClickListener {
-            filterBottomSheet.show(supportFragmentManager, BottomSheet.TAG)
+        binding.searchBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_filter -> filterBottomSheet.show(supportFragmentManager, BottomSheet.TAG)
+            }
+            true
         }
 
     }
@@ -79,7 +82,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
     }
 
     private fun setNews(listNews: SharedFlow<NewsResponse>, recyclerView: RecyclerView) {
-        val adapter = ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ -> }
+        val adapter =
+            ReactiveListAdapter<ItemNewsBinding, NewsData>(R.layout.item_news).initItem { _, _ -> }
         lifecycleScope.launch {
             listNews.collect { adapter.submitList(it.data) }
         }

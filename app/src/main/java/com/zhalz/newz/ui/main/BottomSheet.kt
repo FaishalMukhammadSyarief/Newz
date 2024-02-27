@@ -21,7 +21,7 @@ class BottomSheet(private val session: CoreSession, private val result: () -> Un
     val filterCh = ObservableField(false)
     val filterRu = ObservableField(false)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet, container, false)
         return  binding.root
     }
