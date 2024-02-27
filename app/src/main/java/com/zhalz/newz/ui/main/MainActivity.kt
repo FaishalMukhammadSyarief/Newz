@@ -23,50 +23,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
     lateinit var session: CoreSession
 
     private var query: String? = null
-    private var filter: String? = null
-
-    private val filterBottomSheet by lazy {
-        BottomSheet(session) {
-            val currentFilter = ArrayList<String>()
-
-            if (session.getBoolean(BottomSheet.INDONESIA)) {
-                currentFilter.add(BottomSheet.INDONESIA)
-            }
-            if (session.getBoolean(BottomSheet.ENGLISH)) {
-                currentFilter.add(BottomSheet.ENGLISH)
-            }
-            if (session.getBoolean(BottomSheet.ARABIC)) {
-                currentFilter.add(BottomSheet.ARABIC)
-            }
-            if (session.getBoolean(BottomSheet.CHINESE)) {
-                currentFilter.add(BottomSheet.CHINESE)
-            }
-            if (session.getBoolean(BottomSheet.RUSSIAN)) {
-                currentFilter.add(BottomSheet.RUSSIAN)
-            }
-
-            filter = currentFilter.joinToString(",")
-
-            viewModel.getNews(query, filter)
-
-        }
-    }
+    private var language: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        binding.activity = this
 
         getNews()
 
         setNews(viewModel.listNewsHome, binding.rvNewsHome)
         setNews(viewModel.listNewsSearch, binding.rvNewsSearch)
-
-        binding.searchBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.menu_filter -> filterBottomSheet.show(supportFragmentManager, BottomSheet.TAG)
-            }
-            true
-        }
 
     }
 
@@ -76,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
             .editText
             .setOnEditorActionListener { _, _, _ ->
                 query = binding.searchView.text.toString().trim()
-                viewModel.getNews(query)
+                viewModel.getNews(query, language)
                 true
             }
     }
@@ -88,6 +55,25 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
             listNews.collect { adapter.submitList(it.data) }
         }
         recyclerView.adapter = adapter
+    }
+
+    fun showBottomSheet() {
+        val filterBottomSheet =
+            BottomSheet(session) {
+                val currentFilter = ArrayList<String>()
+
+                if (session.getBoolean(BottomSheet.INDONESIA)) currentFilter.add(BottomSheet.INDONESIA)
+                if (session.getBoolean(BottomSheet.ENGLISH  )) currentFilter.add(BottomSheet.ENGLISH)
+                if (session.getBoolean(BottomSheet.ARABIC   )) currentFilter.add(BottomSheet.ARABIC)
+                if (session.getBoolean(BottomSheet.CHINESE  )) currentFilter.add(BottomSheet.CHINESE)
+                if (session.getBoolean(BottomSheet.RUSSIAN  )) currentFilter.add(BottomSheet.RUSSIAN)
+
+                language = currentFilter.joinToString(",")
+
+                viewModel.getNews(query, language)
+            }
+
+        filterBottomSheet.show(supportFragmentManager, BottomSheet.TAG)
     }
 
 }

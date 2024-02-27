@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
                 { apiService.getNews(API_KEY, query, language) },
                 false,
                 object : ApiObserver.ResponseListenerFlow<NewsResponse>(
-                    if (query == null) _listNewsHome
+                    if (query == null && language == null) _listNewsHome
                     else _listNewsSearch
                 ) {})
         }
